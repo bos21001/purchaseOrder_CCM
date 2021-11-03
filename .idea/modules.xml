@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CCM.iml" filepath="$PROJECT_DIR$/.idea/modules/CCM.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/purchaseOrder_CCM.iml" filepath="$PROJECT_DIR$/.idea/modules/purchaseOrder_CCM.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/purchaseOrder_CCM.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/purchaseOrder_CCM.app.iml" />
     </modules>
   </component>
 </project>
