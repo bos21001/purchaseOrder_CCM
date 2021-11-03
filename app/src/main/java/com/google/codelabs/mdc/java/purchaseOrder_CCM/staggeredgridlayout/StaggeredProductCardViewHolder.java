@@ -1,4 +1,4 @@
-package com.google.codelabs.mdc.java.shrine.staggeredgridlayout;
+package com.google.codelabs.mdc.java.purchaseOrder_CCM.staggeredgridlayout;
 
 import android.view.View;
 import android.widget.TextView;

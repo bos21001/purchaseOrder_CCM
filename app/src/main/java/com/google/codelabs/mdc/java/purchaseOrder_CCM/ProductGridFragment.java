@@ -1,4 +1,4 @@
-package com.google.codelabs.mdc.java.shrine;
+package com.google.codelabs.mdc.java.purchaseOrder_CCM;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import com.google.codelabs.mdc.java.shrine.R;
 
 public class ProductGridFragment extends Fragment {
 

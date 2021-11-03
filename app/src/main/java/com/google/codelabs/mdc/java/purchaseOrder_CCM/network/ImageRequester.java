@@ -1,4 +1,4 @@
-package com.google.codelabs.mdc.java.shrine.network;
+package com.google.codelabs.mdc.java.purchaseOrder_CCM.network;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,7 +9,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
-import com.google.codelabs.mdc.java.shrine.application.ShrineApplication;
+import com.google.codelabs.mdc.java.purchaseOrder_CCM.application.ShrineApplication;
 
 /**
  * Class that handles image requests using Volley.

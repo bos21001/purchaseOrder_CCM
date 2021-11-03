@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProductGridFragment">
+    tools:context="com.google.codelabs.mdc.java.purchaseOrder_CCM.ProductGridFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

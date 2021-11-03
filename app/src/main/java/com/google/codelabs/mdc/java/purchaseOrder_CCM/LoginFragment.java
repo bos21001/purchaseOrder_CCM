@@ -1,4 +1,4 @@
-package com.google.codelabs.mdc.java.shrine;
+package com.google.codelabs.mdc.java.purchaseOrder_CCM;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.codelabs.mdc.java.shrine.R;
 
 /**
  * Fragment representing the login screen for Shrine.

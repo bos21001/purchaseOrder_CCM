@@ -1,4 +1,4 @@
-package com.google.codelabs.mdc.java.shrine;
+package com.google.codelabs.mdc.java.purchaseOrder_CCM;
 
 import android.graphics.Rect;
 import android.view.View;

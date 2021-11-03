@@ -1,4 +1,4 @@
-package com.google.codelabs.mdc.java.shrine.application;
+package com.google.codelabs.mdc.java.purchaseOrder_CCM.application;
 
 import android.app.Application;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package com.google.codelabs.mdc.java.shrine;
+package com.google.codelabs.mdc.java.purchaseOrder_CCM;
 
 import androidx.fragment.app.Fragment;
 

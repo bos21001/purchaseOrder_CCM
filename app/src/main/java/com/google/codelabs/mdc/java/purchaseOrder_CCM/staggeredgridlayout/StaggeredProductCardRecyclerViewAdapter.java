@@ -1,12 +1,12 @@
-package com.google.codelabs.mdc.java.shrine.staggeredgridlayout;
+package com.google.codelabs.mdc.java.purchaseOrder_CCM.staggeredgridlayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.codelabs.mdc.java.shrine.R;
-import com.google.codelabs.mdc.java.shrine.network.ImageRequester;
-import com.google.codelabs.mdc.java.shrine.network.ProductEntry;
+import com.google.codelabs.mdc.java.purchaseOrder_CCM.network.ImageRequester;
+import com.google.codelabs.mdc.java.purchaseOrder_CCM.network.ProductEntry;
 
 import java.util.List;
 

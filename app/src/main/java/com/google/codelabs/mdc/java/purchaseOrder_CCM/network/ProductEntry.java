@@ -1,4 +1,4 @@
-package com.google.codelabs.mdc.java.shrine.network;
+package com.google.codelabs.mdc.java.purchaseOrder_CCM.network;
 
 import android.content.res.Resources;
 import android.net.Uri;
