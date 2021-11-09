@@ -7,4 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!--  Pattern Colors  -->
+    <color name="ccm_red_logo">#ED1C24</color>
+    <color name="ccm_blue_logo">#133880</color>
 </resources>
