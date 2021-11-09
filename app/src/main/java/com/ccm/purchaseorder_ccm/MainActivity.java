@@ -1,3 +1,4 @@
+//TODO FOCUS ON DESIGN FIRST!
 package com.ccm.purchaseorder_ccm;
 
 import androidx.appcompat.app.AppCompatActivity;
