@@ -11,4 +11,13 @@
     <!--  Pattern Colors  -->
     <color name="ccm_red_logo">#ED1C24</color>
     <color name="ccm_blue_logo">#133880</color>
+
+    <color name="primary">#F44336</color>
+    <color name="primary_dark">#D32F2F</color>
+    <color name="primary_light">#FFCDD2</color>
+    <color name="accent">#536DFE</color>
+    <color name="primary_text">#133880</color>
+    <color name="secondary_text">#FFFF</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#BDBDBD</color>
 </resources>
