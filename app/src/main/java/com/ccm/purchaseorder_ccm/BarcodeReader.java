@@ -65,3 +65,4 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
         }
     }
 }
+//Taken from https://www.geeksforgeeks.org/how-to-read-qr-code-using-zxing-library-in-android/
