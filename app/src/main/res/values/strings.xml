@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CCM App</string>
+    <string name="login_Button">Login</string>
+    <string name="username_Input">Username</string>
+    <string name="password_Input">Password</string>
+    <string name="company_logo">Company Logo</string>
 </resources>
