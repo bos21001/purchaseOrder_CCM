@@ -104,7 +104,7 @@
                 android:layout_height="55dp"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="5dp"
-                tools:srcCompat="@drawable/ccm_logo"
+                app:srcCompat="@drawable/ccm_logo"
                 android:contentDescription="@string/company_logo"
                 />
 
