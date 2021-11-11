@@ -4,4 +4,10 @@
     <string name="username_Input">Username</string>
     <string name="password_Input">Password</string>
     <string name="company_logo">Company Logo</string>
+    <string name="orderId_TextView">Order Id:</string>
+    <string name="showOderIdNumber">2021–00000</string>
+    <string name="clientName_TextView">CHRISTOPHER MENDES LTDA</string>
+    <string name="productIdHeader_TextView">Product ID</string>
+    <string name="descriptionHeader_TextView">Description</string>
+    <string name="amountHeader_TextView">Amount</string>
 </resources>
