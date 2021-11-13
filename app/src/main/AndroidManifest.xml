@@ -8,10 +8,15 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ccm_logo_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.PurchaseOrder_CCM">
+        android:theme="@style/Theme.PurchaseOrder_CCM"
+        android:fullBackupContent="@xml/backup_descriptor">
+        <activity
+            android:name=".ProductPage"
+            android:exported="false"/>
         <activity
             android:name=".PurchaseOrderPage"
-            android:exported="false" />
+            android:exported="false">
+        </activity>
         <activity
             android:name=".BarcodeReader"
             android:exported="false" />

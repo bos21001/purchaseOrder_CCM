@@ -21,4 +21,8 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="seraialNumberHeader_TextView">Serial Number</string>
+    <string name="locationHeader_TextView">Location</string>
+    <string name="productDescription_TextView">Example</string>
+    <string name="serialNumberPage_TextView">Serial Number</string>
 </resources>
