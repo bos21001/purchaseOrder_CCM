@@ -9,7 +9,7 @@
     android:orientation="vertical">
 
     <FrameLayout
-        android:id="@+id/header_ProductPage"
+        android:id="@+id/header_PurchaseOrderList"
         android:layout_width="match_parent"
         android:layout_height="143dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -110,7 +110,7 @@
                 />
 
             <TextView
-                android:id="@+id/oderTitle_TextView"
+                android:id="@+id/purchaseOrderList_TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
@@ -140,23 +140,23 @@
     </FrameLayout>
 
     <ListView
-        android:id="@+id/list_PurchaseOrderPage"
+        android:id="@+id/list_PurchaseOrderList"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/header_ProductPage"
+        android:layout_below="@+id/header_PurchaseOrderList"
         android:layout_marginTop="0dp"
         android:background="@color/divider"
         android:backgroundTint="@color/ccm_logo_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header_ProductPage" />
+        app:layout_constraintTop_toBottomOf="@+id/header_PurchaseOrderList" />
 
     <Button
         android:id="@+id/done_button"
         android:layout_width="121dp"
         android:layout_height="65dp"
-        android:layout_below="@+id/list_PurchaseOrderPage"
+        android:layout_below="@+id/list_PurchaseOrderList"
         android:layout_marginStart="47dp"
         android:layout_marginTop="-75dp"
         android:backgroundTint="@color/ccm_blue_logo"

@@ -9,12 +9,14 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class ProductPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Objects.requireNonNull(super.getSupportActionBar()).hide(); //Hides the ActionBar
         setContentView(R.layout.activity_product_page);
 
         ListView productList = findViewById(R.id.list_ProductPage);

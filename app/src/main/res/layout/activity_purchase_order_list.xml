@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PurchaseOrderList">
+
+    <FrameLayout
+        android:id="@+id/header_PurchaseOrderList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/list_description"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginTop="45dp"
+            app:cardBackgroundColor="@color/ccm_blue_logo">
+
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:ignore="UselessParent">
+
+                    <TextView
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="24dp"
+                        android:text="@string/orderIdHeader_TextView"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_marginStart="80dp"
+                        android:layout_marginTop="24dp"
+                        android:text="@string/clientHeader_TextView"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold" />
+
+                </TableRow>
+
+            </TableLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/header1"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_marginTop="0dp"
+            app:cardBackgroundColor="@color/ccm_logo_background"
+            app:cardCornerRadius="10dp">
+
+            <ImageView
+                android:id="@+id/ccm_low_logo"
+                android:layout_width="80dp"
+                android:layout_height="55dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="5dp"
+                android:contentDescription="@string/company_logo"
+                app:srcCompat="@drawable/ccm_logo" />
+
+            <TextView
+                android:id="@+id/purchaseOrderList_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="serif"
+                android:text="@string/purchaseOrderList_TextView"
+                android:textColor="@color/ccm_blue_logo"
+                android:textSize="20sp" />
+
+        </androidx.cardview.widget.CardView>
+
+    </FrameLayout>
+
+    <ListView
+        android:id="@+id/list_PurchaseOrderList"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/header_PurchaseOrderList"
+        android:layout_marginTop="0dp"
+        android:background="@color/divider"
+        android:backgroundTint="@color/ccm_logo_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header_PurchaseOrderList" />
+
+
+</RelativeLayout>

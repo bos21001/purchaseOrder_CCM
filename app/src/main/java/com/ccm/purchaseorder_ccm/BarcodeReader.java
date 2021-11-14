@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.util.Objects;
+
 // implements onClickListener for the onclick behaviour of button
 public class BarcodeReader extends AppCompatActivity implements View.OnClickListener {
     Button scanBtn;
@@ -21,6 +23,7 @@ public class BarcodeReader extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Objects.requireNonNull(super.getSupportActionBar()).hide(); //Hides the ActionBar
         setContentView(R.layout.activity_main);
 
         // referencing and initializing

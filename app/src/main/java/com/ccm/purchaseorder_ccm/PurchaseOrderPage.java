@@ -19,7 +19,7 @@ public class PurchaseOrderPage extends AppCompatActivity {
         Objects.requireNonNull(super.getSupportActionBar()).hide(); //Hides the ActionBar
         setContentView(R.layout.activity_purchase_order_page);
 
-        ListView purchaseList = findViewById(R.id.list_PurchaseOrderPage);
+        ListView purchaseList = findViewById(R.id.list_PurchaseOrderList);
         List<DB_PurchaseOrder> orders = allPurchaseOrders();
         ArrayAdapter<DB_PurchaseOrder> adapter = new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item, orders);
         purchaseList.setAdapter(adapter);

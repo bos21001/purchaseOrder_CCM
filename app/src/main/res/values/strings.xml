@@ -25,4 +25,7 @@
     <string name="locationHeader_TextView">Location</string>
     <string name="productDescription_TextView">Example</string>
     <string name="serialNumberPage_TextView">Serial Number</string>
+    <string name="purchaseOrderList_TextView">Purchase Order List</string>
+    <string name="orderIdHeader_TextView">Order Id</string>
+    <string name="clientHeader_TextView">Client</string>
 </resources>
