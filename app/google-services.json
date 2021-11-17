@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "810930292611",
+    "project_id": "purchaseorder-af206",
+    "storage_bucket": "purchaseorder-af206.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:810930292611:android:a00422c7d3cd1e4f1758b6",
+        "android_client_info": {
+          "package_name": "com.ccm.purchaseorder_ccm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "810930292611-2u9s3q3e81toglsd9kib03ceo4niejjp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvq-pTXkqacuQru5VUP1byO4oNCZihXvw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "810930292611-2u9s3q3e81toglsd9kib03ceo4niejjp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
