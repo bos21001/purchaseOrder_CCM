@@ -6,12 +6,11 @@
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ccm_logo"
-        android:label="@string/app_name"
         android:roundIcon="@mipmap/ccm_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PurchaseOrder_CCM">
         <activity
-            android:name=".PurchaseOrderList"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +28,7 @@
             android:name=".BarcodeReader"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".PurchaseOrderList"
             android:exported="false">
         </activity>
     </application>
