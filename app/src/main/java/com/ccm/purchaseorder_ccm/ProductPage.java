@@ -2,8 +2,12 @@ package com.ccm.purchaseorder_ccm;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -19,10 +23,32 @@ public class ProductPage extends AppCompatActivity {
         Objects.requireNonNull(super.getSupportActionBar()).hide(); //Hides the ActionBar
         setContentView(R.layout.activity_product_page);
 
+        Button doneButton = findViewById(R.id.pp_done_button);
+        ImageButton barcodeReaderButton = findViewById(R.id.pp_barcode_reader_button);
+
         ListView productList = findViewById(R.id.list_ProductPage);
         List<DB_ProductOrder> products = allProducts();
         ArrayAdapter<DB_ProductOrder> adapter = new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item, products);
         productList.setAdapter(adapter);
+
+        // Go one activity back when clicking on DONE button
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), PurchaseOrderPage.class);
+                v.getContext().startActivity(intent);
+            }
+        });
+
+        // Go to BarcodeReader activity
+        barcodeReaderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), BarcodeReader.class);
+                v.getContext().startActivity(intent);
+            }
+        });
+
     }
 
     /**

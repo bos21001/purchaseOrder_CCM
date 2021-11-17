@@ -2,8 +2,13 @@ package com.ccm.purchaseorder_ccm;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -19,10 +24,51 @@ public class PurchaseOrderPage extends AppCompatActivity {
         Objects.requireNonNull(super.getSupportActionBar()).hide(); //Hides the ActionBar
         setContentView(R.layout.activity_purchase_order_page);
 
+        Button doneButton = findViewById(R.id.pcop_done_button);
+        ImageButton barcodeReaderButton = findViewById(R.id.pcop_barcode_reader_button);
+        ImageButton lougoutButton = findViewById(R.id.logout_button);
+
         ListView purchaseList = findViewById(R.id.list_PurchaseOrderList);
         List<DB_PurchaseOrder> orders = allPurchaseOrders();
         ArrayAdapter<DB_PurchaseOrder> adapter = new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item, orders);
         purchaseList.setAdapter(adapter);
+
+        // Open ProductPage.class when clicking in the first item of the list
+        purchaseList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position==0){
+                    startActivity(new Intent(PurchaseOrderPage.this, ProductPage.class));
+                }
+            }
+        });
+
+        // Go one activity back when clicking on DONE button
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), PurchaseOrderList.class);
+                v.getContext().startActivity(intent);
+            }
+        });
+
+        // Go to BarcodeReader activity
+        barcodeReaderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), BarcodeReader.class);
+                v.getContext().startActivity(intent);
+            }
+        });
+
+        // Go to login activity
+        lougoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     /**
