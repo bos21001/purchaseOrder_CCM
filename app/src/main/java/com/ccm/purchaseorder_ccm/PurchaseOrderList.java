@@ -2,7 +2,10 @@ package com.ccm.purchaseorder_ccm;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -23,7 +26,18 @@ public class PurchaseOrderList extends AppCompatActivity {
         List<DB_PurchaseOrderList> purchaseOrders = allPurchaseOrders();
         ArrayAdapter<DB_PurchaseOrderList> adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, purchaseOrders);
         purchaseOrdersList.setAdapter(adapter);
-    }
+
+        // Open PurchaseOrderPage.class when clicking in the first item of the list
+        purchaseOrdersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0){
+                    startActivity(new Intent(PurchaseOrderList.this, PurchaseOrderPage.class));
+                }
+            }
+        });
+
+        }
 
     /**
      *
