@@ -59,6 +59,21 @@ public class MainActivity extends AppCompatActivity {
 
         loginButton = findViewById(R.id.button);
 
+
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                currentUser = firebaseAuth.getCurrentUser();
+
+                if(currentUser!= null){
+
+                }else{
+
+                }
+
+            }
+        };
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,35 +91,17 @@ public class MainActivity extends AppCompatActivity {
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
-                            assert user != null;
-                            String currentUserId = user.getUid();
+                           if(task.isSuccessful()) {
 
-                            collectionReference
-                                    .whereEqualTo("userId", currentUserId)
-                                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                                            if(error !=null){
 
-                                            }
-                                            assert value != null;
-                                            if(!value.isEmpty()){
-                                                for(QueryDocumentSnapshot snapshot : value){
-                                                    OrderApi orderApi = OrderApi.getInstance();
-                                                    orderApi.setUsername(snapshot.getString("username"));
-                                                    orderApi.setUserId(snapshot.getString("userId"));
-
-                                                    //Go to Purchase Order List
-                                                    startActivity(new Intent(MainActivity.this,
-                                                            PurchaseOrderList.class));
-
+                               //Go to Purchase Order List
+                               startActivity(new Intent(MainActivity.this,
+                                       PurchaseOrderList.class));
+                           }
 
                                                 }
-                                            }
-                                        }
-                                    });
-                        }
+
+
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
