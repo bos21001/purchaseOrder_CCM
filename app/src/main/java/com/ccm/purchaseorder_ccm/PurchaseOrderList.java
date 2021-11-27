@@ -1,12 +1,10 @@
 package com.ccm.purchaseorder_ccm;
 
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -14,15 +12,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
 
-
 public class PurchaseOrderList extends AppCompatActivity {
     private RecyclerView mRecyclerView;
+
+    public FirebaseDatabase mDatabase;
+    private DatabaseReference mReferenceClients;
+    private Clients client;
+    private HashMap<String, String> clientsList;
     //Second Try
     //    FirebaseDatabase database;
 //    DatabaseReference databaseReference;
@@ -30,12 +31,12 @@ public class PurchaseOrderList extends AppCompatActivity {
 //
 //    ArrayList<String> list;
 //    ArrayAdapter<String> adapter;
-//    Client client;
+//    Clients clients;
 //    Order order;
 
     //First Try
     //    ArrayList<String> arrayList = new ArrayList<>();
-//    ArrayAdapter<String> arrayAdapter;
+    //    ArrayAdapter<String> arrayAdapter;
     // ListView listView; // First Try
 
 
@@ -46,11 +47,36 @@ public class PurchaseOrderList extends AppCompatActivity {
         setContentView(R.layout.activity_purchase_order_list);
         mRecyclerView = (RecyclerView) findViewById(R.id.list_PurchaseOrderList);
 
+        client = new Clients();
+        mDatabase = FirebaseDatabase.getInstance();
+        mReferenceClients = mDatabase.getReference("Clients");
+        clientsList = new HashMap<>();
+
+        // Create a list of all the actual clients
+        mReferenceClients.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren()) {
+
+                    client = ds.getValue(Clients.class);
+                    clientsList.put(Objects.requireNonNull(client).getId(), client.getName().trim());
+                }
+                System.out.println(clientsList);
+                System.out.println(132477);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
         new FirebaseDatabaseHelper().readOrders(new FirebaseDatabaseHelper.DataStatus() {
             @Override
             public void DataIsLoaded(List<Order> orders, List<String> keys) {
                 new RecyclerView_Config().setConfig(mRecyclerView, PurchaseOrderList.this,
-                        orders,keys);
+                        orders, keys, clientsList);
             }
 
             @Override
@@ -70,9 +96,8 @@ public class PurchaseOrderList extends AppCompatActivity {
         });
 
 
-
         //Second Try
-//        client = new Client();
+//        clients = new Clients();
 //        ListView listView = findViewById(R.id.list_PurchaseOrderList);
 //        database = FirebaseDatabase.getInstance();
 //        databaseReference1 = database.getReference("Clients");
@@ -83,7 +108,7 @@ public class PurchaseOrderList extends AppCompatActivity {
 //            public void onDataChange(@NonNull DataSnapshot snapshot) {
 //                for(DataSnapshot ds: snapshot.getChildren()){
 //
-//                    client = ds.getValue(Client.class);
+//                    clients = ds.getValue(Clients.class);
 //                    list.add(client.getId().toString() + " " + client.getName().toString());
 //
 //                }
@@ -114,14 +139,6 @@ public class PurchaseOrderList extends AppCompatActivity {
 //
 //            }
 //        });
-
-
-
-
-
-
-
-
 
 
         ////First try to read the data from Firebase Real Storage
@@ -172,9 +189,6 @@ public class PurchaseOrderList extends AppCompatActivity {
 //
 //
 //
-
-
-
 
 
         //Christopher Layout Implementation

@@ -2,11 +2,11 @@ package com.ccm.purchaseorder_ccm;
 
 
 
-public class Client  {
+public class Clients {
     private String id;
     private String name;
 
-    public Client(String id, String name) {
+    public Clients(String id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -27,7 +27,7 @@ public class Client  {
         this.name = name;
     }
 
-    public Client(){
+    public Clients(){
 
     }
 

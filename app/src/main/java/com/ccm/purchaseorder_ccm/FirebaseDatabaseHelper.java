@@ -1,7 +1,5 @@
 package com.ccm.purchaseorder_ccm;
 
-import android.provider.ContactsContract;
-
 import androidx.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
@@ -33,6 +31,7 @@ public class FirebaseDatabaseHelper {
     }
 
     public void readOrders(final DataStatus dataStatus){
+
         mReferenceOrders.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

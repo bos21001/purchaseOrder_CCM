@@ -91,7 +91,7 @@
                 android:background="@color/white"
                 android:layout_gravity="end"
                 android:padding="10dp"
-                android:contentDescription="logout button"/>
+                android:contentDescription="@string/logout_button"/>
 
         </androidx.cardview.widget.CardView>
 
@@ -100,6 +100,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_PurchaseOrderList"
         android:layout_width="match_parent"
+
         android:layout_height="fill_parent"
         android:layout_below="@+id/header_PurchaseOrderList"
         android:layout_marginTop="0dp"
