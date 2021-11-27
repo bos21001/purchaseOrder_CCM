@@ -2,6 +2,7 @@ package com.ccm.purchaseorder_ccm;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -15,23 +16,27 @@ import com.google.firebase.database.ValueEventListener;
 
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
 
 public class PurchaseOrderList extends AppCompatActivity {
-    FirebaseDatabase database;
-    DatabaseReference databaseReference;
-    DatabaseReference databaseReference1;
-   // ListView listView; // First Try
-    ArrayList<String> list;
-    ArrayAdapter<String> adapter;
-    Client client;
-    Order order;
+    private RecyclerView mRecyclerView;
+    //Second Try
+    //    FirebaseDatabase database;
+//    DatabaseReference databaseReference;
+//    DatabaseReference databaseReference1;
+//
+//    ArrayList<String> list;
+//    ArrayAdapter<String> adapter;
+//    Client client;
+//    Order order;
 
     //First Try
     //    ArrayList<String> arrayList = new ArrayList<>();
 //    ArrayAdapter<String> arrayAdapter;
+    // ListView listView; // First Try
 
 
     @Override
@@ -39,49 +44,76 @@ public class PurchaseOrderList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Objects.requireNonNull(super.getSupportActionBar()).hide(); //Hides the ActionBar
         setContentView(R.layout.activity_purchase_order_list);
+        mRecyclerView = (RecyclerView) findViewById(R.id.list_PurchaseOrderList);
 
-        client = new Client();
-        ListView listView = findViewById(R.id.list_PurchaseOrderList);
-        database = FirebaseDatabase.getInstance();
-        databaseReference1 = database.getReference("Clients");
-        list = new ArrayList<>();
-        adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, list);
-        databaseReference1.addValueEventListener(new ValueEventListener() {
+        new FirebaseDatabaseHelper().readOrders(new FirebaseDatabaseHelper.DataStatus() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot ds: snapshot.getChildren()){
-
-                    client = ds.getValue(Client.class);
-                    list.add(client.getId().toString() + " " + client.getName().toString());
-
-                }
-                listView.setAdapter(adapter);
+            public void DataIsLoaded(List<Order> orders, List<String> keys) {
+                new RecyclerView_Config().setConfig(mRecyclerView, PurchaseOrderList.this,
+                        orders,keys);
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            public void DataIsInserted() {
 
-            }
-        });
-
-        order = new Order();
-        databaseReference = database.getReference("Orders");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot ds: snapshot.getChildren()){
-
-                    order = ds.getValue(Order.class);
-                    list.add(order.getClientId().toString() + " " + order.getOrderId().toString());
-                }
-                listView.setAdapter(adapter);
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            public void DataIsUpdated() {
+
+            }
+
+            @Override
+            public void DataIsDeleted() {
 
             }
         });
+
+
+
+        //Second Try
+//        client = new Client();
+//        ListView listView = findViewById(R.id.list_PurchaseOrderList);
+//        database = FirebaseDatabase.getInstance();
+//        databaseReference1 = database.getReference("Clients");
+//        list = new ArrayList<>();
+//        adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, list);
+//        databaseReference1.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for(DataSnapshot ds: snapshot.getChildren()){
+//
+//                    client = ds.getValue(Client.class);
+//                    list.add(client.getId().toString() + " " + client.getName().toString());
+//
+//                }
+//                listView.setAdapter(adapter);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//
+//        order = new Order();
+//        databaseReference = database.getReference("Orders");
+//        databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for(DataSnapshot ds: snapshot.getChildren()){
+//
+//                    order = ds.getValue(Order.class);
+//                    list.add(order.getClientId().toString() + " " + order.getOrderId().toString());
+//                }
+//                listView.setAdapter(adapter);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
 
 

@@ -1,6 +1,8 @@
 package com.ccm.purchaseorder_ccm;
 
-public class Order {
+
+
+public class Order  {
     private String ClientId;
     private String OrderId;
 

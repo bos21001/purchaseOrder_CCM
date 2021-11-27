@@ -97,7 +97,7 @@
 
     </FrameLayout>
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_PurchaseOrderList"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
