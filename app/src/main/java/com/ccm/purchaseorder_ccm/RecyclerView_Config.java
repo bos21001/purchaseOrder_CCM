@@ -68,7 +68,7 @@ public class RecyclerView_Config {
         @Override
         public void onBindViewHolder(@NonNull OrderItemView holder, int position) {
             holder.bind(mOrderList.get(position), mKeys.get(position));
-                    }
+        }
 
         @Override
         public int getItemCount() {
