@@ -81,6 +81,7 @@
             app:cardCornerRadius="10dp">
 
             <TextView
+                android:id="@+id/clientName_TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
@@ -140,7 +141,7 @@
     </FrameLayout>
 
     <ListView
-        android:id="@+id/list_PurchaseOrderList"
+        android:id="@+id/list_ProductOrderList"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/header_PurchaseOrderList"
@@ -156,7 +157,7 @@
         android:id="@+id/pcop_done_button"
         android:layout_width="121dp"
         android:layout_height="65dp"
-        android:layout_below="@+id/list_PurchaseOrderList"
+        android:layout_below="@+id/list_ProductOrderList"
         android:layout_marginStart="47dp"
         android:layout_marginTop="-75dp"
         android:backgroundTint="@color/ccm_blue_logo"

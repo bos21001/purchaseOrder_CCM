@@ -1,5 +1,6 @@
 package com.ccm.purchaseorder_ccm;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,13 +17,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
 
-public class PurchaseOrderList extends AppCompatActivity {
+public class PurchaseOrderList extends AppCompatActivity implements Serializable {
     FirebaseDatabase database;
     DatabaseReference orderDataBaseReference;
     DatabaseReference clientDataBaseReference;
@@ -35,7 +37,7 @@ public class PurchaseOrderList extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void  onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Objects.requireNonNull(super.getSupportActionBar()).hide(); //Hides the ActionBar
         setContentView(R.layout.activity_purchase_order_list);
@@ -83,6 +85,9 @@ public class PurchaseOrderList extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Toast.makeText(getApplicationContext(),
                                 "Clicked on Order: " + ordersList.get(position), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(PurchaseOrderList.this, PurchaseOrderPage.class);
+                        intent.putExtra("PurchaseOrderList", position);
+                        startActivity(intent);
                     }
                 });
             }
