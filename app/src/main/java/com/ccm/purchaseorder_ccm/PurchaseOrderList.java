@@ -23,17 +23,12 @@ public class PurchaseOrderList extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference orderDataBaseReference;
     DatabaseReference clientDataBaseReference;
-    // ListView listView; // First Try
     ArrayList<String> ordersList;
     ArrayAdapter<String> adapter;
     Client client;
     Order order;
 
     Map<String, String> loadedClients;
-
-    //First Try
-    //    ArrayList<String> arrayList = new ArrayList<>();
-//    ArrayAdapter<String> arrayAdapter;
 
 
     @Override
@@ -50,6 +45,7 @@ public class PurchaseOrderList extends AppCompatActivity {
         adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, ordersList);
         loadedClients = new HashMap<>();
 
+        //Add all clients information from database to loadedClients HashMap list.
         clientDataBaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -67,6 +63,7 @@ public class PurchaseOrderList extends AppCompatActivity {
             }
         });
 
+        //Set to the purchase order list layout all orders basic information
         order = new Order();
         orderDataBaseReference = database.getReference("Orders");
         orderDataBaseReference.addValueEventListener(new ValueEventListener() {
@@ -87,99 +84,6 @@ public class PurchaseOrderList extends AppCompatActivity {
         });
 
 
-        ////First try to read the data from Firebase Real Storage
-//        databaseReference1 = FirebaseDatabase.getInstance().getReference("Clients");
-//        databaseReference = FirebaseDatabase.getInstance().getReference("Orders");
-//        ListView listView = findViewById(R.id.list_PurchaseOrderList);
-//        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayList);
-//        listView.setAdapter(arrayAdapter);
-//
-//
-//
-//
-//
-//
-//
-//
-//        databaseReference.addChildEventListener(new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//                String value1 = snapshot.getValue(Clients.class).toString();
-//                String value = snapshot.getValue(Orders.class).toString();
-//                arrayList.add(value);
-//                arrayList.add(value1);
-//                arrayAdapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//
-//            }
-//
-//            @Override
-//            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//
-//
-//
 
-
-        //Christopher Layout Implementation
-//        List<DB_PurchaseOrderList> purchaseOrders = allPurchaseOrders();
-//        ArrayAdapter<DB_PurchaseOrderList> adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, purchaseOrders);
-//        purchaseOrdersList.setAdapter(adapter);
-//
-//        // Open PurchaseOrderPage.class when clicking in the first item of the list
-//        purchaseOrdersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                if (position == 0){
-//                    startActivity(new Intent(PurchaseOrderList.this, PurchaseOrderPage.class));
-//                }
-//            }
-//        });
-//
-//        }
-//
-//    /**
-//     *
-//     * @return a list of all the purchase orders
-//     */
-//    private List<DB_PurchaseOrderList> allPurchaseOrders() {
-//        return new ArrayList<>(Arrays.asList(
-//                new DB_PurchaseOrderList("2021-10100", "CHRISTOPHER MENDES LTDA"),
-//                new DB_PurchaseOrderList("2021-10528", "MARCO NOVAES ME"),
-//                new DB_PurchaseOrderList("2021-99958", "HELAMA RODRIGUES EIRELI"),
-//                new DB_PurchaseOrderList("2021-100025", "NELSON ARROYO S.A"),
-//                new DB_PurchaseOrderList("2021-10528", "ALESSANDRO ALMEIDA LTDA"),
-//                new DB_PurchaseOrderList("2021-10100", "CHRISTOPHER MENDES LTDA"),
-//                new DB_PurchaseOrderList("2021-10528", "MARCO NOVAES ME"),
-//                new DB_PurchaseOrderList("2021-99958", "HELAMA RODRIGUES EIRELI"),
-//                new DB_PurchaseOrderList("2021-100025", "NELSON ARROYO S.A"),
-//                new DB_PurchaseOrderList("2021-10528", "ALESSANDRO ALMEIDA LTDA"),
-//                new DB_PurchaseOrderList("2021-10100", "CHRISTOPHER MENDES LTDA"),
-//                new DB_PurchaseOrderList("2021-10528", "MARCO NOVAES ME"),
-//                new DB_PurchaseOrderList("2021-99958", "HELAMA RODRIGUES EIRELI"),
-//                new DB_PurchaseOrderList("2021-100025", "NELSON ARROYO S.A"),
-//                new DB_PurchaseOrderList("2021-10528", "ALESSANDRO ALMEIDA LTDA"),
-//                new DB_PurchaseOrderList("2021-10100", "CHRISTOPHER MENDES LTDA"),
-//                new DB_PurchaseOrderList("2021-10528", "MARCO NOVAES ME"),
-//                new DB_PurchaseOrderList("2021-99958", "HELAMA RODRIGUES EIRELI"),
-//                new DB_PurchaseOrderList("2021-100025", "NELSON ARROYO S.A"),
-//                new DB_PurchaseOrderList("2021-10528", "ALESSANDRO ALMEIDA LTDA")
-//        ));
     }
 }
