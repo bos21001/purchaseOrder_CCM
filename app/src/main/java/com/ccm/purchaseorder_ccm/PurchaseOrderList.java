@@ -50,7 +50,6 @@ public class PurchaseOrderList extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
-
                     client = ds.getValue(Client.class);
                     loadedClients.put(Objects.requireNonNull(client).getId(), client.getName());
 
@@ -69,6 +68,7 @@ public class PurchaseOrderList extends AppCompatActivity {
         orderDataBaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ordersList.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
 
                     order = ds.getValue(Order.class);
@@ -82,7 +82,6 @@ public class PurchaseOrderList extends AppCompatActivity {
 
             }
         });
-
 
 
     }
