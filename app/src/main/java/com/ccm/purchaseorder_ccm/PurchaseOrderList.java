@@ -1,8 +1,11 @@
 package com.ccm.purchaseorder_ccm;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -75,6 +78,13 @@ public class PurchaseOrderList extends AppCompatActivity {
                     ordersList.add(Objects.requireNonNull(order).getOrderId() + " " + loadedClients.get(order.getClientId()));
                 }
                 listView.setAdapter(adapter);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Toast.makeText(getApplicationContext(),
+                                "Clicked on Order: " + ordersList.get(position), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
             @Override
@@ -82,7 +92,5 @@ public class PurchaseOrderList extends AppCompatActivity {
 
             }
         });
-
-
     }
 }
