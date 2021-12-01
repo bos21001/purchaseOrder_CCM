@@ -1,7 +1,5 @@
 package com.ccm.purchaseorder_ccm;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +7,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,7 +54,7 @@ public class ProductPage extends AppCompatActivity {
     /**
      *
      *
-     * @return A list of the products in a Purchase Order example
+     * @return A list of the orderProducts in a Purchase Order example
      */
     private List<DB_ProductOrder> allProducts() {
         return new ArrayList<>(Arrays.asList(

@@ -30,13 +30,20 @@ public class PurchaseOrderPage extends AppCompatActivity implements Serializable
     FirebaseDatabase database;
     DatabaseReference orderDataBaseReference;
     DatabaseReference clientDataBaseReference;
+    DatabaseReference productsDataBaseReference;
+    DatabaseReference descriptionOfProductsDataBaseReference;
     ArrayList<String> orderList;
+    ArrayList<String> orderProductsList;
     ArrayList<String> nameOrderList;
     ArrayAdapter<String> adapter;
     Client client;
     Order order;
+    OrderProducts orderProducts;
+    Products products;
+    Integer position;
 
     Map<String, String> loadedClients;
+    Map<String, String> loadedProducts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,22 +57,45 @@ public class PurchaseOrderPage extends AppCompatActivity implements Serializable
         TextView headerClientName = findViewById(R.id.clientName_TextView);
 
 
-        client = new Client();
+
         ListView listView = findViewById(R.id.list_ProductOrderList);
         database = FirebaseDatabase.getInstance();
-        clientDataBaseReference = database.getReference("Clients");
+
         orderList = new ArrayList<>();
+        orderProductsList = new ArrayList<>();
         nameOrderList = new ArrayList<>();
-        adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, orderList);
+        adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, orderProductsList);
         loadedClients = new HashMap<>();
+        loadedProducts = new HashMap<>();
+
+        position = (Integer) getIntent().getSerializableExtra("PurchaseOrderList");
 
         //Add all clients information from database to loadedClients HashMap list.
+        client = new Client();
+        clientDataBaseReference = database.getReference("Clients");
         clientDataBaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     client = ds.getValue(Client.class);
                     loadedClients.put(Objects.requireNonNull(client).getId(), client.getName());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        products = new Products();
+        descriptionOfProductsDataBaseReference =  database.getReference("Products");
+        descriptionOfProductsDataBaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds: snapshot.getChildren()){
+                    products = ds.getValue(Products.class);
+                    loadedProducts.put(Objects.requireNonNull(products).getProductId(), products.getProductDescription());
                 }
             }
 
@@ -88,13 +118,30 @@ public class PurchaseOrderPage extends AppCompatActivity implements Serializable
                     order = ds.getValue(Order.class);
                     orderList.add(Objects.requireNonNull(order).getOrderId());
                     nameOrderList.add(loadedClients.get(order.getClientId()));
-                }
-                //listView.setAdapter(adapter); //Not necessary for now!
 
-                System.out.println(getIntent().getSerializableExtra("PurchaseOrderList"));
-                System.out.println("132477");
-                headerOrderIdNumber.setText(orderList.get((Integer) getIntent().getSerializableExtra("PurchaseOrderList")));
-                headerClientName.setText(nameOrderList.get((Integer) getIntent().getSerializableExtra("PurchaseOrderList")));
+
+                }
+                headerOrderIdNumber.setText(orderList.get(position));
+                headerClientName.setText(nameOrderList.get(position));
+
+                orderProducts = new OrderProducts();
+                productsDataBaseReference = database.getReference("Orders/" + position + "/orderProducts");
+                productsDataBaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot ds1 : snapshot.getChildren()) {
+                            orderProducts = ds1.getValue(OrderProducts.class);
+                            orderProductsList.add(Objects.requireNonNull(orderProducts).getProductId() + " " + loadedProducts.get(orderProducts.getProductId()) + " " + orderProducts.getAmount());
+                            System.out.println(orderProducts.getProductId());
+                        }
+                        listView.setAdapter(adapter); //Not necessary for now!
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override

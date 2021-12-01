@@ -1,28 +1,38 @@
 package com.ccm.purchaseorder_ccm;
 
 public class Order {
-    private String ClientId;
-    private String OrderId;
+    private String clientId;
+    private String orderId;
+    private String productId;
 
-    public Order(String clientId, String orderId) {
-        ClientId = clientId;
-        OrderId = orderId;
+    public Order(String clientId, String orderId, String productId) {
+        this.clientId = clientId;
+        this.orderId = orderId;
+        this.productId = productId;
     }
 
     public String getClientId() {
-        return ClientId;
+        return clientId;
     }
 
     public void setClientId(String clientId) {
-        ClientId = clientId;
+        this.clientId = clientId;
     }
 
     public String getOrderId() {
-        return OrderId;
+        return orderId;
     }
 
     public void setOrderId(String orderId) {
-        OrderId = orderId;
+        this.orderId = orderId;
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
 
     public Order() {
