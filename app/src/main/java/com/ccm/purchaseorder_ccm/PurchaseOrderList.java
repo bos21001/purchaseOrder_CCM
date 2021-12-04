@@ -28,14 +28,18 @@ public class PurchaseOrderList extends AppCompatActivity implements Serializable
     FirebaseDatabase database;
     DatabaseReference orderDataBaseReference;
     DatabaseReference clientDataBaseReference;
+    DatabaseReference descriptionOfProductsDataBaseReference;
 
     ArrayList<String> ordersList;
     ArrayAdapter<String> adapter;
 
     Client client;
     Order order;
+    Products products;
 
     Map<String, String> loadedClients;
+    Map<String, String> loadedProducts;
+    Bundle extras = new Bundle();
 
 
     @Override
@@ -51,6 +55,7 @@ public class PurchaseOrderList extends AppCompatActivity implements Serializable
         ordersList = new ArrayList<>();
         adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, ordersList);
         loadedClients = new HashMap<>();
+        loadedProducts = new HashMap<>();
 
         //Add all clients information from database to loadedClients HashMap list.
         clientDataBaseReference.addValueEventListener(new ValueEventListener() {
@@ -59,7 +64,25 @@ public class PurchaseOrderList extends AppCompatActivity implements Serializable
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     client = ds.getValue(Client.class);
                     loadedClients.put(Objects.requireNonNull(client).getId(), client.getName());
+                    extras.putString(client.getId(), client.getName());
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        products = new Products();
+        descriptionOfProductsDataBaseReference = database.getReference("Products");
+        descriptionOfProductsDataBaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    products = ds.getValue(Products.class);
+                    loadedProducts.put(Objects.requireNonNull(products).getProductId(), products.getProductDescription());
+                    extras.putString(products.getProductId(), products.getProductDescription());
                 }
             }
 
@@ -88,7 +111,8 @@ public class PurchaseOrderList extends AppCompatActivity implements Serializable
                         Toast.makeText(getApplicationContext(),
                                 "Clicked on Order: " + ordersList.get(position), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(PurchaseOrderList.this, PurchaseOrderPage.class);
-                        intent.putExtra("PurchaseOrderList", position);
+                        extras.putString("position", String.valueOf(position));
+                        intent.putExtras(extras);
                         startActivity(intent);
                     }
                 });

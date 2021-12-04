@@ -22,91 +22,44 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class PurchaseOrderPage extends AppCompatActivity implements Serializable {
     FirebaseDatabase database;
     DatabaseReference orderDataBaseReference;
-    DatabaseReference clientDataBaseReference;
     DatabaseReference productsDataBaseReference;
-    DatabaseReference descriptionOfProductsDataBaseReference;
 
     ArrayList<String> orderList;
     ArrayList<String> orderProductsList;
-    ArrayList<String> nameOrderList;
+    ArrayList<String> loadedClients;
     ArrayAdapter<String> adapter;
 
-    Client client;
     Order order;
     OrderProducts orderProducts;
-    Products products;
 
-    Integer position;
+    String position;
 
-    Map<String, String> loadedClients;
-    Map<String, String> loadedProducts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Objects.requireNonNull(super.getSupportActionBar()).hide(); //Hides the ActionBar
         setContentView(R.layout.activity_purchase_order_page);
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        position = extras.getString("position");
+
         Button doneButton = findViewById(R.id.pcop_done_button);
         ImageButton barcodeReaderButton = findViewById(R.id.pcop_barcode_reader_button);
-
         TextView headerOrderIdNumber = findViewById(R.id.orderIdNumber_TextView);
         TextView headerClientName = findViewById(R.id.clientName_TextView);
-
-
-
         ListView listView = findViewById(R.id.list_ProductOrderList);
-        database = FirebaseDatabase.getInstance();
 
+        database = FirebaseDatabase.getInstance();
         orderList = new ArrayList<>();
         orderProductsList = new ArrayList<>();
-        nameOrderList = new ArrayList<>();
+        loadedClients = new ArrayList<>();
         adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, orderProductsList);
-        loadedClients = new HashMap<>();
-        loadedProducts = new HashMap<>();
-
-        position = (Integer) getIntent().getSerializableExtra("PurchaseOrderList");
-
-        //Add all clients information from database to loadedClients HashMap list.
-        client = new Client();
-        clientDataBaseReference = database.getReference("Clients");
-        clientDataBaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot ds : snapshot.getChildren()) {
-                    client = ds.getValue(Client.class);
-                    loadedClients.put(Objects.requireNonNull(client).getId(), client.getName());
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        products = new Products();
-        descriptionOfProductsDataBaseReference =  database.getReference("Products");
-        descriptionOfProductsDataBaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot ds: snapshot.getChildren()){
-                    products = ds.getValue(Products.class);
-                    loadedProducts.put(Objects.requireNonNull(products).getProductId(), products.getProductDescription());
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
         //Set to the purchase order list layout all orders basic information
         order = new Order();
@@ -115,17 +68,15 @@ public class PurchaseOrderPage extends AppCompatActivity implements Serializable
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 orderList.clear();
-                nameOrderList.clear();
+                loadedClients.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
 
                     order = ds.getValue(Order.class);
                     orderList.add(Objects.requireNonNull(order).getOrderId());
-                    nameOrderList.add(loadedClients.get(order.getClientId()));
-
-
+                    loadedClients.add(extras.getString(order.getClientId()));
                 }
-                headerOrderIdNumber.setText(orderList.get(position));
-                headerClientName.setText(nameOrderList.get(position));
+                headerOrderIdNumber.setText(orderList.get(Integer.parseInt(position)));
+                headerClientName.setText(loadedClients.get(Integer.parseInt(position)));
             }
 
             @Override
@@ -141,8 +92,7 @@ public class PurchaseOrderPage extends AppCompatActivity implements Serializable
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds1 : snapshot.getChildren()) {
                     orderProducts = ds1.getValue(OrderProducts.class);
-                    orderProductsList.add(Objects.requireNonNull(orderProducts).getProductId() + " " + loadedProducts.get(orderProducts.getProductId()) + " " + orderProducts.getAmount());
-                    System.out.println(orderProducts.getProductId());
+                    orderProductsList.add(Objects.requireNonNull(orderProducts).getProductId() + " " + extras.getString(orderProducts.getProductId()) + " " + orderProducts.getAmount());
                 }
                 listView.setAdapter(adapter);
             }
