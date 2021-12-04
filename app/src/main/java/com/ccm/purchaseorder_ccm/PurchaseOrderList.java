@@ -28,8 +28,10 @@ public class PurchaseOrderList extends AppCompatActivity implements Serializable
     FirebaseDatabase database;
     DatabaseReference orderDataBaseReference;
     DatabaseReference clientDataBaseReference;
+
     ArrayList<String> ordersList;
     ArrayAdapter<String> adapter;
+
     Client client;
     Order order;
 

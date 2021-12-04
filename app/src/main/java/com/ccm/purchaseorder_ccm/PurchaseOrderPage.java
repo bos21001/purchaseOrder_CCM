@@ -32,14 +32,17 @@ public class PurchaseOrderPage extends AppCompatActivity implements Serializable
     DatabaseReference clientDataBaseReference;
     DatabaseReference productsDataBaseReference;
     DatabaseReference descriptionOfProductsDataBaseReference;
+
     ArrayList<String> orderList;
     ArrayList<String> orderProductsList;
     ArrayList<String> nameOrderList;
     ArrayAdapter<String> adapter;
+
     Client client;
     Order order;
     OrderProducts orderProducts;
     Products products;
+
     Integer position;
 
     Map<String, String> loadedClients;
@@ -123,39 +126,39 @@ public class PurchaseOrderPage extends AppCompatActivity implements Serializable
                 }
                 headerOrderIdNumber.setText(orderList.get(position));
                 headerClientName.setText(nameOrderList.get(position));
-
-                orderProducts = new OrderProducts();
-                productsDataBaseReference = database.getReference("Orders/" + position + "/orderProducts");
-                productsDataBaseReference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot ds1 : snapshot.getChildren()) {
-                            orderProducts = ds1.getValue(OrderProducts.class);
-                            orderProductsList.add(Objects.requireNonNull(orderProducts).getProductId() + " " + loadedProducts.get(orderProducts.getProductId()) + " " + orderProducts.getAmount());
-                            System.out.println(orderProducts.getProductId());
-                        }
-                        listView.setAdapter(adapter); //Not necessary for now!
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Toast.makeText(getApplicationContext(),
-                                "Clicked on Product: " + orderList.get(position), Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(PurchaseOrderPage.this, ProductPage.class));
-                    }
-                });
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        orderProducts = new OrderProducts();
+        productsDataBaseReference = database.getReference("Orders/" + position + "/orderProducts");
+        productsDataBaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds1 : snapshot.getChildren()) {
+                    orderProducts = ds1.getValue(OrderProducts.class);
+                    orderProductsList.add(Objects.requireNonNull(orderProducts).getProductId() + " " + loadedProducts.get(orderProducts.getProductId()) + " " + orderProducts.getAmount());
+                    System.out.println(orderProducts.getProductId());
+                }
+                listView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(),
+                        "Clicked on Product: " + orderList.get(position), Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(PurchaseOrderPage.this, ProductPage.class));
             }
         });
 
