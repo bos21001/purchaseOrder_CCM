@@ -43,7 +43,7 @@ public class PurchaseOrderList extends AppCompatActivity implements Serializable
 
 
     @Override
-    protected void  onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Objects.requireNonNull(super.getSupportActionBar()).hide(); //Hides the ActionBar
         setContentView(R.layout.activity_purchase_order_list);
@@ -100,7 +100,6 @@ public class PurchaseOrderList extends AppCompatActivity implements Serializable
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ordersList.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
-
                     order = ds.getValue(Order.class);
                     ordersList.add(Objects.requireNonNull(order).getOrderId() + " " + loadedClients.get(order.getClientId()));
                 }

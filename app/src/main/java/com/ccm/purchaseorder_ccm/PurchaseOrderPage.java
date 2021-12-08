@@ -38,7 +38,7 @@ public class PurchaseOrderPage extends AppCompatActivity implements Serializable
     OrderProducts orderProducts;
 
     String position;
-
+    Bundle extras1 = new Bundle();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,7 @@ public class PurchaseOrderPage extends AppCompatActivity implements Serializable
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         position = extras.getString("position");
+        String databasePath = "Orders/" + position + "/orderProducts";
 
         Button doneButton = findViewById(R.id.pcop_done_button);
         ImageButton barcodeReaderButton = findViewById(R.id.pcop_barcode_reader_button);
@@ -86,15 +87,33 @@ public class PurchaseOrderPage extends AppCompatActivity implements Serializable
         });
 
         orderProducts = new OrderProducts();
-        productsDataBaseReference = database.getReference("Orders/" + position + "/orderProducts");
+        productsDataBaseReference = database.getReference(databasePath);
         productsDataBaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<String> descriptionOnly = new ArrayList<>();
+                ArrayList<String> productIdOnly = new ArrayList<>();
+                orderProductsList.clear();
                 for (DataSnapshot ds1 : snapshot.getChildren()) {
                     orderProducts = ds1.getValue(OrderProducts.class);
                     orderProductsList.add(Objects.requireNonNull(orderProducts).getProductId() + " " + extras.getString(orderProducts.getProductId()) + " " + orderProducts.getAmount());
+                    descriptionOnly.add(extras.getString(orderProducts.getProductId()));
+                    productIdOnly.add(orderProducts.getProductId());
                 }
                 listView.setAdapter(adapter);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+                        Toast.makeText(getApplicationContext(),
+                                "Clicked on Product: " + orderProductsList.get(pos), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(PurchaseOrderPage.this, ProductPage.class);
+                        extras.putString("clickedProduct", descriptionOnly.get(pos));
+                        extras.putString("databasePath", databasePath + "/" + pos);
+                        extras.putString("productId", productIdOnly.get(pos));
+                        intent.putExtras(extras);
+                        startActivity(intent);
+                    }
+                });
             }
 
             @Override
@@ -103,21 +122,13 @@ public class PurchaseOrderPage extends AppCompatActivity implements Serializable
             }
         });
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(),
-                        "Clicked on Product: " + orderList.get(position), Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(PurchaseOrderPage.this, ProductPage.class));
-            }
-        });
 
         // Go one activity back when clicking on DONE button
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), PurchaseOrderList.class);
-                v.getContext().startActivity(intent);
+                PurchaseOrderPage.super.onBackPressed();
+                finish();
             }
         });
 
