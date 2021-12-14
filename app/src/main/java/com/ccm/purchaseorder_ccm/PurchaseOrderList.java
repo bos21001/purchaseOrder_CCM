@@ -1,11 +1,20 @@
 package com.ccm.purchaseorder_ccm;
 
+import static android.content.ContentValues.TAG;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,10 +29,13 @@ import java.util.Objects;
 public class PurchaseOrderList extends AppCompatActivity {
     private RecyclerView mRecyclerView;
 
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
+
     public FirebaseDatabase mDatabase;
     private DatabaseReference mReferenceClients;
     private Clients client;
     private HashMap<String, String> clientsList;
+    private ImageButton logout;
     //Second Try
     //    FirebaseDatabase database;
 //    DatabaseReference databaseReference;
@@ -39,6 +51,38 @@ public class PurchaseOrderList extends AppCompatActivity {
     //    ArrayAdapter<String> arrayAdapter;
     // ListView listView; // First Try
 
+    private void setupFirebaseListener(){
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if(user != null){
+                    Log.d(TAG, "onAuthStateChanged: signed_in: " + user.getUid());
+                }else{
+                    Log.d(TAG, "onAuthStateChanged: signed_out");
+                    Toast.makeText(PurchaseOrderList.this, "Signed out", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(PurchaseOrderList.this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
+            }
+        };
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseAuth.getInstance().addAuthStateListener(mAuthStateListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(mAuthStateListener != null){
+            FirebaseAuth.getInstance().removeAuthStateListener(mAuthStateListener);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +91,30 @@ public class PurchaseOrderList extends AppCompatActivity {
         setContentView(R.layout.activity_purchase_order_list);
         mRecyclerView = (RecyclerView) findViewById(R.id.list_PurchaseOrderList);
 
+        setupFirebaseListener();
+
+        logout = (ImageButton) findViewById(R.id.logout_button);
+
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+
+            }
+        });
+
+
+
+
         client = new Clients();
         mDatabase = FirebaseDatabase.getInstance();
         mReferenceClients = mDatabase.getReference("Clients");
         clientsList = new HashMap<>();
+
+
+
+
 
         // Create a list of all the actual clients
         mReferenceClients.addValueEventListener(new ValueEventListener() {
@@ -61,8 +125,7 @@ public class PurchaseOrderList extends AppCompatActivity {
                     client = ds.getValue(Clients.class);
                     clientsList.put(Objects.requireNonNull(client).getId(), client.getName().trim());
                 }
-                System.out.println(clientsList);
-                System.out.println(132477);
+
             }
 
             @Override
@@ -94,6 +157,8 @@ public class PurchaseOrderList extends AppCompatActivity {
 
             }
         });
+
+
 
 
         //Second Try
