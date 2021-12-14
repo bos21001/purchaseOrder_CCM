@@ -30,6 +30,12 @@
         <activity
             android:name=".PurchaseOrderList"
             android:exported="false" />
+        <activity
+            android:name=".CaptureActivityPortrait"
+            android:screenOrientation="fullSensor"
+            android:stateNotNeeded="true"
+            android:theme="@style/zxing_CaptureTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
     </application>
 
 </manifest>

@@ -61,6 +61,17 @@
             app:cardBackgroundColor="@color/ccm_logo_background"
             app:cardCornerRadius="10dp">
 
+            <ImageButton
+                android:id="@+id/logout_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/logout_icon"
+                android:background="@color/white"
+                android:layout_gravity="end"
+                android:padding="10dp"
+                android:contentDescription="@string/logout_button"
+                />
+
             <ImageView
                 android:id="@+id/ccm_low_logo"
                 android:layout_width="80dp"
@@ -83,15 +94,6 @@
                 android:textColor="@color/ccm_blue_logo"
                 android:textSize="20sp" />
 
-            <ImageButton
-                android:id="@+id/logout_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/logout_icon"
-                android:background="@color/white"
-                android:layout_gravity="end"
-                android:padding="10dp"
-                android:contentDescription="logout button"/>
 
         </androidx.cardview.widget.CardView>
 

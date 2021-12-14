@@ -2,12 +2,11 @@ package com.ccm.purchaseorder_ccm;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -15,57 +14,49 @@ import com.google.zxing.integration.android.IntentResult;
 
 import java.util.Objects;
 
-// implements onClickListener for the onclick behaviour of button
-public class BarcodeReader extends AppCompatActivity implements View.OnClickListener {
-    Button scanBtn;
-    TextView messageText, messageFormat;
+public class BarcodeReader extends AppCompatActivity {
+
+    TextView tv_showData;
+    private String st_scanned_result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_barcode_reader);
         Objects.requireNonNull(super.getSupportActionBar()).hide(); //Hides the ActionBar
-        setContentView(R.layout.activity_main);
 
-        // referencing and initializing
-        // the button and textviews
-        scanBtn = findViewById(R.id.scanBtn);
-        messageText = findViewById(R.id.textContent);
-        messageFormat = findViewById(R.id.textFormat);
-
-        // adding listener to the button
-        scanBtn.setOnClickListener(this);
-
+        tv_showData = findViewById(R.id.txt);
     }
 
-    @Override
-    public void onClick(View v) {
-        // we need to create the object
-        // of IntentIntegrator class
-        // which is the class of QR library
-        IntentIntegrator intentIntegrator = new IntentIntegrator(this);
-        intentIntegrator.setPrompt("Scan a barcode or QR Code");
-        intentIntegrator.setOrientationLocked(true);
-        intentIntegrator.initiateScan();
-    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        // if the intentResult is null then
-        // toast a message as "cancelled"
-        if (intentResult != null) {
-            if (intentResult.getContents() == null) {
-                Toast.makeText(getBaseContext(), "Cancelled", Toast.LENGTH_SHORT).show();
-            } else {
-                // if the intentResult is not null we'll set
-                // the content and format of scan message
-                messageText.setText(intentResult.getContents());
-                messageFormat.setText(intentResult.getFormatName());
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
+
+    public void onclick(View view) {
+        if (view.getId() == R.id.open_scan){
+            IntentIntegrator integrator = new IntentIntegrator(this);
+            integrator.setPrompt("Scan a serial number");
+            integrator.setCameraId(0);  // Use a specific camera of the device
+            integrator.setOrientationLocked(true);
+            integrator.setBeepEnabled(false);
+            integrator.setCaptureActivity(CaptureActivityPortrait.class);
+            integrator.initiateScan();
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            if (result.getContents() == null) {
+                Log.d("BarcodeReader", "Cancelled scan");
+                Toast.makeText(this, "Serial number scanning was canceled by the user", Toast.LENGTH_LONG).show();
+            } else {
+                Log.d("BarcodeReader", "Scanned");
+                st_scanned_result = result.getContents();
+                Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
+                tv_showData.setText(result.getContents());
+            }
+        }
+
+    }
 }
-//Taken from https://www.geeksforgeeks.org/how-to-read-qr-code-using-zxing-library-in-android/

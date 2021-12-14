@@ -28,4 +28,6 @@
     <string name="purchaseOrderList_TextView">Purchase Order List</string>
     <string name="orderIdHeader_TextView">Order Id</string>
     <string name="clientHeader_TextView">Client</string>
+    <string name="logout_button">logout button</string>
+    <string name="open_scan">open scan</string>
 </resources>
