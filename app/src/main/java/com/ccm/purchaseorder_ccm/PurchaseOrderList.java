@@ -1,16 +1,22 @@
 package com.ccm.purchaseorder_ccm;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +39,8 @@ public class PurchaseOrderList extends AppCompatActivity implements Serializable
     ArrayList<String> ordersList;
     ArrayAdapter<String> adapter;
 
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
+
     Client client;
     Order order;
     Products products;
@@ -41,6 +49,37 @@ public class PurchaseOrderList extends AppCompatActivity implements Serializable
     Map<String, String> loadedProducts;
     Bundle extras = new Bundle();
 
+    private void setupFirebaseListener(){
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if(user != null){
+                    Log.d(TAG, "onAuthStateChanged: signed_in: " + user.getUid());
+                }else{
+                    Log.d(TAG, "onAuthStateChanged: signed_out");
+                    Toast.makeText(PurchaseOrderList.this, "Signed out", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(PurchaseOrderList.this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
+            }
+        };
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseAuth.getInstance().addAuthStateListener(mAuthStateListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(mAuthStateListener != null){
+            FirebaseAuth.getInstance().removeAuthStateListener(mAuthStateListener);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +95,18 @@ public class PurchaseOrderList extends AppCompatActivity implements Serializable
         adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, ordersList);
         loadedClients = new HashMap<>();
         loadedProducts = new HashMap<>();
+
+        setupFirebaseListener();
+
+        ImageButton logout = findViewById(R.id.logout_button);
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+
+            }
+        });
 
         //Add all clients information from database to loadedClients HashMap list.
         clientDataBaseReference.addValueEventListener(new ValueEventListener() {
