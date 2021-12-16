@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ProductPage">
 
     <FrameLayout
@@ -33,36 +33,18 @@
                     tools:ignore="UselessParent">
 
                     <TextView
-                        android:text="@string/productIdHeader_TextView"
-                        android:layout_marginTop="24dp"
                         android:layout_marginStart="10dp"
-                        android:textStyle="bold"
-                        android:textColor="#FFFFFF"
-                        />
-
-                    <TextView
-                        android:text="@string/seraialNumberHeader_TextView"
                         android:layout_marginTop="24dp"
-                        android:layout_marginStart="80dp"
-                        android:textStyle="bold"
-                        android:textColor="#FFFFFF"
-                        />
-
-                    <TextView
-                        android:text="@string/locationHeader_TextView"
-                        android:layout_marginTop="24dp"
-                        android:layout_marginStart="50dp"
-                        android:textStyle="bold"
-                        android:textColor="#FFFFFF"
-                        />
-
-                    <ImageView
                         android:text="@string/productIdHeader_TextView"
-                        android:layout_marginTop="18dp"
-                        android:layout_marginStart="20dp"
-                        android:src="@drawable/barcode_icon"
-                        android:contentDescription="Barcode Icon"
-                        tools:ignore="HardcodedText" />
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_marginStart="80dp"
+                        android:layout_marginTop="24dp"
+                        android:text="@string/seraialNumberHeader_TextView"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold" />
 
                 </TableRow>
 
@@ -83,10 +65,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:textAlignment="center"
-                android:textColor="#FFFFFF"
                 android:text="@string/productDescription_TextView"
-                />
+                android:textAlignment="center"
+                android:textColor="#FFFFFF" />
 
         </androidx.cardview.widget.CardView>
 
@@ -104,22 +85,21 @@
                 android:layout_height="55dp"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="5dp"
-                app:srcCompat="@drawable/ccm_logo"
                 android:contentDescription="@string/company_logo"
-                />
+                app:srcCompat="@drawable/ccm_logo" />
 
             <TextView
                 android:id="@+id/purchaseOrderList_TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_gravity="center_horizontal"
                 android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="20dp"
-                android:textSize="20sp"
                 android:fontFamily="serif"
                 android:text="@string/serialNumberPage_TextView"
-                android:textColor="@color/ccm_blue_logo" />
+                android:textColor="@color/ccm_blue_logo"
+                android:textSize="20sp" />
 
 
         </androidx.cardview.widget.CardView>
@@ -134,6 +114,8 @@
         android:layout_marginTop="0dp"
         android:background="@color/divider"
         android:backgroundTint="@color/ccm_logo_background"
+        android:clipToPadding="false"
+        android:paddingBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -147,7 +129,7 @@
         android:layout_marginStart="47dp"
         android:layout_marginTop="-75dp"
         android:backgroundTint="@color/ccm_blue_logo"
-        android:text="@string/done_button"/>
+        android:text="@string/done_button" />
 
     <ImageButton
         android:id="@+id/pp_barcode_reader_button"
@@ -160,7 +142,7 @@
         android:layout_marginEnd="47dp"
         android:background="@drawable/roundcorner"
         android:backgroundTint="@color/ccm_red_logo"
-        android:src="@drawable/barcode_reader_icon"
-        android:contentDescription="@string/a_button_with_a_barcode_reader_icon" />
+        android:contentDescription="@string/a_button_with_a_barcode_reader_icon"
+        android:src="@drawable/barcode_reader_icon" />
 
 </RelativeLayout>

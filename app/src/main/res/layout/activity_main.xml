@@ -6,61 +6,83 @@
     android:layout_height="match_parent"
     android:background="@color/ccm_red_logo"
     tools:context=".MainActivity">
-<LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/imageView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_weight="1"
-        app:srcCompat="@drawable/login_background" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:srcCompat="@drawable/ccm_logo"
-        android:background="@color/white"/>
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="800dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/login_background"
+            android:contentDescription="@string/assembly_room" />
 
-    <AutoCompleteTextView
-        android:id="@+id/email"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/round_corner_toggle"
-        android:hint="Username"
-        android:textAlignment="center"
-        android:inputType="textEmailAddress"
-        android:maxLines="1" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
 
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/round_corner_toggle"
-        android:hint="Password"
-        android:textAlignment="center"
-        android:inputType="textPassword"
-        android:maxLines="1" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:background="@color/white"/>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:text="Login"
-        android:textColor="@color/white"
-        android:textStyle="bold" />
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                app:cardCornerRadius="15dp"
+                android:layout_marginBottom="20dp">
 
-</LinearLayout>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/ccm_logo"
+                    android:contentDescription="@string/ccm_logo" />
+            </androidx.cardview.widget.CardView>
+
+        </FrameLayout>
 
 
+        <AutoCompleteTextView
+            android:id="@+id/email"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/round_corner_toggle"
+            android:hint="@string/username"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/round_corner_toggle"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:autofillHints="password" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:text="@string/login"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
 
 </LinearLayout>

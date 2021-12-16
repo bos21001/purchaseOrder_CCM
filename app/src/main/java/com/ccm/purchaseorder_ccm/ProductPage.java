@@ -139,8 +139,6 @@ public class ProductPage extends AppCompatActivity implements Serializable {
                 actualSN.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DataSnapshot> task) {
-                        System.out.println(Objects.requireNonNull(Objects.requireNonNull(task.getResult()).getValue()).toString().length());
-                        System.out.println("132477");
                         int length = Objects.requireNonNull(Objects.requireNonNull(task.getResult()).getValue()).toString().length();
                         if (length <= 7) {
                             actualSN.setValue(st_scanned_result);

@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +18,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.zxing.integration.android.IntentIntegrator;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -38,7 +38,8 @@ public class PurchaseOrderPage extends AppCompatActivity implements Serializable
     OrderProducts orderProducts;
 
     String position;
-    Bundle extras1 = new Bundle();
+
+    IntentIntegrator integrator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,6 @@ public class PurchaseOrderPage extends AppCompatActivity implements Serializable
         String databasePath = "Orders/" + position + "/orderProducts";
 
         Button doneButton = findViewById(R.id.pcop_done_button);
-        ImageButton barcodeReaderButton = findViewById(R.id.pcop_barcode_reader_button);
         TextView headerOrderIdNumber = findViewById(R.id.orderIdNumber_TextView);
         TextView headerClientName = findViewById(R.id.clientName_TextView);
         ListView listView = findViewById(R.id.list_ProductOrderList);
@@ -61,6 +61,13 @@ public class PurchaseOrderPage extends AppCompatActivity implements Serializable
         orderProductsList = new ArrayList<>();
         loadedClients = new ArrayList<>();
         adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, orderProductsList);
+
+        integrator = new IntentIntegrator(this);
+        integrator.setPrompt("Scan a serial number");
+        integrator.setCameraId(0);  // Use a specific camera of the device
+        integrator.setOrientationLocked(true);
+        integrator.setBeepEnabled(false);
+        integrator.setCaptureActivity(CaptureActivityPortrait.class);
 
         //Set to the purchase order list layout all orders basic information
         order = new Order();
@@ -132,14 +139,6 @@ public class PurchaseOrderPage extends AppCompatActivity implements Serializable
             }
         });
 
-        // Go to BarcodeReader activity
-        barcodeReaderButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), BarcodeReader.class);
-                v.getContext().startActivity(intent);
-            }
-        });
 
     }
 

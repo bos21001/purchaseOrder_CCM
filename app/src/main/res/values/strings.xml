@@ -30,4 +30,9 @@
     <string name="clientHeader_TextView">Client</string>
     <string name="logout_button">logout button</string>
     <string name="open_scan">open scan</string>
+    <string name="assembly_room">Assembly Room</string>
+    <string name="ccm_logo">CCM Logo</string>
+    <string name="username">Username</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
 </resources>

@@ -51,20 +51,11 @@
                     />
 
                     <TextView
-                        android:text="@string/amountHeader_TextView"
-                        android:layout_marginTop="24dp"
                         android:layout_marginStart="50dp"
-                        android:textStyle="bold"
+                        android:layout_marginTop="24dp"
+                        android:text="@string/amountHeader_TextView"
                         android:textColor="#FFFFFF"
-                    />
-
-                    <ImageView
-                        android:text="@string/productIdHeader_TextView"
-                        android:layout_marginTop="18dp"
-                        android:layout_marginStart="20dp"
-                        android:src="@drawable/barcode_icon"
-                        android:contentDescription="Barcode Icon"
-                        tools:ignore="HardcodedText" />
+                        android:textStyle="bold" />
 
                 </TableRow>
 
@@ -148,6 +139,8 @@
         android:layout_marginTop="0dp"
         android:background="@color/divider"
         android:backgroundTint="@color/ccm_logo_background"
+        android:paddingBottom="100dp"
+        android:clipToPadding="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -158,23 +151,10 @@
         android:layout_width="121dp"
         android:layout_height="65dp"
         android:layout_below="@+id/list_ProductOrderList"
-        android:layout_marginStart="47dp"
+        android:layout_marginHorizontal="150dp"
         android:layout_marginTop="-75dp"
+        android:gravity="center"
         android:backgroundTint="@color/ccm_blue_logo"
         android:text="@string/done_button" />
-
-    <ImageButton
-        android:id="@+id/pcop_barcode_reader_button"
-        android:layout_width="121dp"
-        android:layout_height="50dp"
-        android:layout_below="@+id/pcop_done_button"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="47dp"
-        android:layout_marginTop="-60dp"
-        android:layout_marginEnd="47dp"
-        android:background="@drawable/roundcorner"
-        android:backgroundTint="@color/ccm_red_logo"
-        android:src="@drawable/barcode_reader_icon"
-        android:contentDescription="@string/a_button_with_a_barcode_reader_icon" />
 
 </RelativeLayout>
